@@ -13,10 +13,11 @@ jobs:
     - COG-UnityCache-WUS2-01
     - SDK_18362 -equals TRUE
   steps:
-  - template: templates/leap-tests.yml
+  # Build Android.
+  - template: tasks/unitybuild.yml
     parameters:
-      UnityVersion: $(Unity2019Version)
-      Arch: 'x86'  # x86|arm
-      Platform: 'Android' 
+      Arch: 'x86'
+      Platform: 'Standalone'
+      UnityVersion: ${{ parameters.UnityVersion }}
 
   - template: templates/end.yml
