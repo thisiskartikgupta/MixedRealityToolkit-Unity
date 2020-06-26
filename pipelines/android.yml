@@ -16,8 +16,7 @@ jobs:
   # Build Android.
   - template: tasks/unitybuild.yml
     parameters:
-      Arch: 'x86'
-      Platform: 'Standalone'
-      UnityVersion: ${{ parameters.UnityVersion }}
+      Platform: 'Android'
+      UnityVersion: $(Unity2019Version)
 
   - template: templates/end.yml
