@@ -5,7 +5,7 @@ variables:
 
 jobs:
 - job: AndroidValidation
-  timeoutInMinutes: 60
+  timeoutInMinutes: 90
   pool:
     name: On-Prem Unity
     demands:
