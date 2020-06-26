@@ -14,7 +14,7 @@ jobs:
     - SDK_18362 -equals TRUE
   steps:
   # Build Android.
-  - template: tasks/unitybuild.yml
+  - template: templates/tasks/unitybuild.yml
     parameters:
       Platform: 'Android'
       UnityVersion: $(Unity2019Version)
