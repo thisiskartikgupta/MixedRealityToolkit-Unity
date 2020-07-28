@@ -3,6 +3,7 @@
 
 using Microsoft.MixedReality.Toolkit.Boundary;
 using Microsoft.MixedReality.Toolkit.Diagnostics;
+using Microsoft.MixedReality.Toolkit.Experimental.Accessibility;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.Rendering;
 using Microsoft.MixedReality.Toolkit.SceneSystem;
@@ -41,6 +42,10 @@ namespace Microsoft.MixedReality.Toolkit.Editor
         private SerializedProperty enableSpatialAwarenessSystem;
         private SerializedProperty spatialAwarenessSystemType;
         private SerializedProperty spatialAwarenessSystemProfile;
+        // Accessibility system properties
+        private SerializedProperty enableAccessibilitySystem;
+        private SerializedProperty accessibilitySystemType;
+        private SerializedProperty accessibilitySystemProfile;
         // Diagnostic system properties
         private SerializedProperty enableDiagnosticsSystem;
         private SerializedProperty enableVerboseLogging;
@@ -66,6 +71,7 @@ namespace Microsoft.MixedReality.Toolkit.Editor
             "Boundary",
             "Teleport",
             "Spatial Awareness",
+            "Accessibility",
             "Diagnostics",
             "Scene System",
             "Extensions",
@@ -104,6 +110,10 @@ namespace Microsoft.MixedReality.Toolkit.Editor
             // Teleport system configuration
             enableTeleportSystem = serializedObject.FindProperty("enableTeleportSystem");
             teleportSystemType = serializedObject.FindProperty("teleportSystemType");
+            // Accessibility system configuration
+            enableAccessibilitySystem = serializedObject.FindProperty("enableAccessibilitySystem");
+            accessibilitySystemType = serializedObject.FindProperty("accessibilitySystemType");
+            accessibilitySystemProfile = serializedObject.FindProperty("accessibilitySystemProfile");
             // Spatial Awareness system configuration
             enableSpatialAwarenessSystem = serializedObject.FindProperty("enableSpatialAwarenessSystem");
             spatialAwarenessSystemType = serializedObject.FindProperty("spatialAwarenessSystemType");
@@ -248,6 +258,30 @@ namespace Microsoft.MixedReality.Toolkit.Editor
                                 EditorGUILayout.HelpBox("Spatial Awareness settings are configured per observer.", MessageType.Info);
 
                                 changed |= RenderProfile(spatialAwarenessSystemProfile, null, true, false, typeof(IMixedRealitySpatialAwarenessSystem));
+                            }
+                            else
+                            {
+                                RenderSystemDisabled(service);
+                            }
+
+                            changed |= c.changed;
+                        }
+                        return changed;
+                    },
+                    () => {
+                        bool changed = false;
+                        using (var c = new EditorGUI.ChangeCheckScope())
+                        {
+                            const string service = "Accessibility System";
+                            EditorGUILayout.PropertyField(enableAccessibilitySystem);
+
+                            if (enableAccessibilitySystem.boolValue)
+                            {
+                                CheckSystemConfiguration(service, mrtkConfigProfile.AccessibilitySystemSystemType, mrtkConfigProfile.AccessibilitySystemProfile != null);
+
+                                EditorGUILayout.PropertyField(accessibilitySystemType);
+
+                                changed |= RenderProfile(accessibilitySystemProfile, typeof(MixedRealityAccessibilitySystemProfile));
                             }
                             else
                             {

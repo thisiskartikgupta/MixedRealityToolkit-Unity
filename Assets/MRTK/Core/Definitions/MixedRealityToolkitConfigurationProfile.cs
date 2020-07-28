@@ -4,6 +4,7 @@
 using Microsoft.MixedReality.Toolkit.Boundary;
 using Microsoft.MixedReality.Toolkit.CameraSystem;
 using Microsoft.MixedReality.Toolkit.Diagnostics;
+using Microsoft.MixedReality.Toolkit.Experimental.Accessibility;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.SceneSystem;
 using Microsoft.MixedReality.Toolkit.SpatialAwareness;
@@ -186,6 +187,46 @@ namespace Microsoft.MixedReality.Toolkit
         {
             get { return teleportSystemType; }
             internal set { teleportSystemType = value; }
+        }
+
+        [SerializeField]
+        [Tooltip("Profile for configuring accessibility components.")]
+        private MixedRealityAccessibilitySystemProfile accessibilitySystemProfile;
+
+        /// <summary>
+        /// Active profile for diagnostic configuration
+        /// </summary>
+        public MixedRealityAccessibilitySystemProfile AccessibilitySystemProfile
+        {
+            get { return accessibilitySystemProfile; }
+            internal set { accessibilitySystemProfile = value; }
+        }
+
+        [SerializeField]
+        [Tooltip("Enable the accessibility system")]
+        private bool enableAccessibilitySystem = false;
+
+        /// <summary>
+        /// Is the Accessibility System enabled?
+        /// </summary>
+        public bool IsAccessibilitySystemEnabled
+        {
+            get { return enableAccessibilitySystem && AccessibilitySystemSystemType?.Type != null && accessibilitySystemProfile != null; }
+            internal set { enableAccessibilitySystem = value; }
+        }
+
+        [SerializeField]
+        [Tooltip("Accessibility System class to instantiate at runtime.")]
+        [Implements(typeof(IMixedRealityAccessibilitySystem), TypeGrouping.ByNamespaceFlat)]
+        private SystemType accessibilitySystemType;
+
+        /// <summary>
+        /// Diagnostics System Script File to instantiate at runtime
+        /// </summary>
+        public SystemType AccessibilitySystemSystemType
+        {
+            get { return accessibilitySystemType; }
+            internal set { accessibilitySystemType = value; }
         }
 
         [SerializeField]
