@@ -10,7 +10,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
     /// <summary>
     /// Interface that defines the Mixed Reality Toolkit hologram magnifier feature.
     /// </summary>
-    public interface IMixedRealityMagnifier : IMixedRealityEventSystem
+    public interface IMixedRealityMagnifier : IMixedRealityAccessibilityFeature
     {
         /// <summary>
         /// 

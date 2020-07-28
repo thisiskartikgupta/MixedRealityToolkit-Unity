@@ -6,21 +6,22 @@ using UnityEngine;
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 {
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Profiles/Mixed Reality Accessibility System Profile", fileName = "MixedRealityToolkitConfigurationProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Profiles/Mixed Reality Accessibility System Profile", fileName = "MixedRealityToolkitAccessibilitySystemProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
+    [MixedRealityServiceProfile(typeof(IMixedRealityAccessibilitySystem))]
     // todo [HelpURL("https://microsoft.github.io/MixedRealityToolkit-Unity/Documentation/MixedRealityConfigurationGuide.html")]
     public class MixedRealityAccessibilitySystemProfile : BaseMixedRealityProfile
     {
         [SerializeField]
-        [Tooltip("Configuration objects describing the registered settings providers.")]
-        private MixedRealityAccessibilityServiceConfiguration[] serviceConfigurations = new MixedRealityAccessibilityServiceConfiguration[0];
+        [Tooltip("Configuration objects describing the registered feature providers.")]
+        private MixedRealityAccessibilityFeatureConfiguration[] featureConfigurations = new MixedRealityAccessibilityFeatureConfiguration[0];
 
         /// <summary>
-        /// Configuration objects describing the registered accessbility service providers.
+        /// Configuration objects describing the registered accessbility feature providers.
         /// </summary>
-        public MixedRealityAccessibilityServiceConfiguration[] ServiceConfigurations
+        public MixedRealityAccessibilityFeatureConfiguration[] FeatureConfigurations
         {
-            get => serviceConfigurations;
-            internal set => serviceConfigurations = value;
+            get => featureConfigurations;
+            internal set => featureConfigurations = value;
         }
     }
 }

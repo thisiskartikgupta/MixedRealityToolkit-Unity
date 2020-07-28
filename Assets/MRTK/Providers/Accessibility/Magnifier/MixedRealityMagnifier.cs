@@ -9,10 +9,13 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
     /// <summary>
     /// 
     /// </summary>
-    public class MixedRealityMagnifier : BaseCoreSystem, IMixedRealityMagnifier
+    public class MixedRealityMagnifier : BaseAccessibilityFeature, IMixedRealityMagnifier
     {
         public MixedRealityMagnifier(
-            MixedRealityMagnifierProfile profile = null) : base(profile)
+            IMixedRealityAccessibilitySystem system,
+            string name,
+            uint priority,
+            MixedRealityMagnifierProfile profile = null) : base(system, name, priority, profile)
         { }
 
         /// <summary>
@@ -29,6 +32,16 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             MagnificationFactor = MagnifierProfile.MagnificationFactor;
             MinimumDistance = MagnifierProfile.MinimumDistance;
         }
+
+        #region IMixedRealityAccessibilityFeature
+
+        /// <inheritdoc/>
+        public MixedRealityMagnifierProfile MagnifierProfile => ConfigurationProfile as MixedRealityMagnifierProfile;
+
+        /// <inheritdoc />
+        public AccessibilityFeatureCategory Category => AccessibilityFeatureCategory.Vision | AccessibilityFeatureCategory.Mobility;
+
+        #endregion // IMixedRealityAccessibilityFeature
 
         #region IMixedRealityMagnifier
 
@@ -108,12 +121,6 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 
         #region IMixedRealityService
 
-        /// <inheritdoc/>
-        public override string Name { get; protected set; } = "Mixed Reality Magnifier";
-
-        /// <inheritdoc/>
-        public MixedRealityMagnifierProfile MagnifierProfile => ConfigurationProfile as MixedRealityMagnifierProfile;
-
         /// <inheritdoc />
         public override void Initialize()
         {
@@ -123,15 +130,6 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             {
                 Resume();
             }
-        }
-
-        /// <inheritdoc />
-        public override void Reset()
-        {
-            base.Reset();
-            Disable();
-            Initialize();
-            Enable();
         }
 
         /// <inheritdoc />
@@ -151,7 +149,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         public override void Update()
         {
             base.Update();
-            
+
             if (IsRunning)
             {
                 GameObject focusedObject = CoreServices.InputSystem?.GazeProvider?.GazeTarget;
@@ -175,13 +173,6 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
                 suspendedByDisable = true;
             }
             base.Disable();
-        }
-
-        /// <inheritdoc />
-        public override void Destroy()
-        {
-            // todo
-            base.Destroy();
         }
 
         #endregion // IMixedRealityService

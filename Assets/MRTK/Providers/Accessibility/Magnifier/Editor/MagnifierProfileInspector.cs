@@ -15,6 +15,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility.Editor
         private const string ProfileTitle = "Magnifier Settings";
         private const string ProfileDescription = ""; // todo - description
 
+        private SerializedProperty category;
         private SerializedProperty magnificationFactor;
         private SerializedProperty minDistance;
 

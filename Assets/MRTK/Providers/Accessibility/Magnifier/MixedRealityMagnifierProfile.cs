@@ -9,8 +9,8 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
     /// Configuration profile for <see cref="MixedRealityMagnifier"/> service.
     /// </summary>
 	[MixedRealityServiceProfile(typeof(IMixedRealityMagnifier))]
-    [CreateAssetMenu(fileName = "DefaultMixedRealityMagnifierProfile", menuName = "Mixed Reality Toolkit/Profiles/Magnifier Configuration Profile")]
-    public class MixedRealityMagnifierProfile : BaseMixedRealityProfile
+    [CreateAssetMenu(fileName = "MixedRealityMagnifierProfile", menuName = "Mixed Reality Toolkit/Profiles/Magnifier Configuration Profile")]
+    public class MixedRealityMagnifierProfile : BaseAccessibilityFeatureProfile
     {
         [SerializeField]
         [Tooltip("The magnification factor to apply to holograms. Ex: 1.5 magnifies by 50%.")]

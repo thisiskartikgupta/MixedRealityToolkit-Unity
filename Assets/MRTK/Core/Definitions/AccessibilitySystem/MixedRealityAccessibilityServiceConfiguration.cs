@@ -11,32 +11,32 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
     /// Defines the configuration for a camera settings provider.
     /// </summary>
     [Serializable]
-    public struct MixedRealityAccessibilityServiceConfiguration : IMixedRealityServiceConfiguration
+    public struct MixedRealityAccessibilityFeatureConfiguration : IMixedRealityServiceConfiguration
     {
         [SerializeField]
         [Tooltip("The concrete type of the camera settings provider.")]
-        [Implements(typeof(IMixedRealityAccessibilityService), TypeGrouping.ByNamespaceFlat)]
+        [Implements(typeof(IMixedRealityAccessibilityFeature), TypeGrouping.ByNamespaceFlat)]
         private SystemType componentType;
 
         /// <inheritdoc />
         public SystemType ComponentType => componentType;
 
         [SerializeField]
-        [Tooltip("The name of the accessibility service.")]
+        [Tooltip("The name of the accessibility feature.")]
         private string componentName;
 
         /// <inheritdoc />
         public string ComponentName => componentName;
 
         [SerializeField]
-        [Tooltip("The accessibility service priority.")]
+        [Tooltip("The accessibility feature priority.")]
         private uint priority;
 
         /// <inheritdoc />
         public uint Priority => priority;
 
         [SerializeField]
-        [Tooltip("The platform(s) on which the accessibility service is supported.")]
+        [Tooltip("The platform(s) on which the accessibility geature is supported.")]
         [EnumFlags]
         private SupportedPlatforms runtimePlatform;
 
@@ -44,15 +44,15 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         public SupportedPlatforms RuntimePlatform => runtimePlatform;
 
         [SerializeField]
-        private BaseAccessibilityServiceProfile serviceProfile;
+        private BaseAccessibilityFeatureProfile featureProfile;
 
         /// <inheritdoc />
-        public BaseMixedRealityProfile Profile => serviceProfile;
+        public BaseMixedRealityProfile Profile => featureProfile;
 
         /// <summary>
-        /// Camera settings specific configuration profile.
+        /// Accessibility feature specific configuration profile.
         /// </summary>
-        public BaseAccessibilityServiceProfile ServiceProfile => serviceProfile;
+        public BaseAccessibilityFeatureProfile FeatureProfile => featureProfile;
 
         /// <summary>
         /// Constructor.
@@ -62,18 +62,18 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         /// <param name="priority">The load priority of the provider.</param>
         /// <param name="runtimePlatform">The runtime platform(s) supported by the provider.</param>
         /// <param name="settingsProfile">The configuration profile for the provider.</param>
-        public MixedRealityAccessibilityServiceConfiguration(
+        public MixedRealityAccessibilityFeatureConfiguration(
             SystemType componentType,
             string componentName,
             uint priority,
             SupportedPlatforms runtimePlatform,
-            BaseAccessibilityServiceProfile configurationProfile)
+            BaseAccessibilityFeatureProfile configurationProfile)
         {
             this.componentType = componentType;
             this.componentName = componentName;
             this.priority = priority;
             this.runtimePlatform = runtimePlatform;
-            this.serviceProfile = configurationProfile;
+            this.featureProfile = configurationProfile;
         }
     }
 }

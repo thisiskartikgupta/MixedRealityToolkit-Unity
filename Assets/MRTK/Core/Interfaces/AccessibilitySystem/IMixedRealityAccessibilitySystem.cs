@@ -3,7 +3,7 @@
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 {
-    public interface IMixedRealityAccessibilitySystem
+    public interface IMixedRealityAccessibilitySystem : IMixedRealityEventSystem
     {
         /// <summary>
         /// Typed representation of the ConfigurationProfile property.

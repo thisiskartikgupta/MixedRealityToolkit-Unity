@@ -4,9 +4,9 @@
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 {
     /// <summary>
-    /// Interface defining the a camera system settings provider.
+    /// Interface defining the an accessibility service feature.
     /// </summary>
-    public interface IMixedRealityAccessibilityService : IMixedRealityDataProvider
+    public interface IMixedRealityAccessibilityFeature : IMixedRealityDataProvider
     {
         /// <summary>
         /// Flags describing which accessibility feature categories (ex: vision) that are provided by this service.
