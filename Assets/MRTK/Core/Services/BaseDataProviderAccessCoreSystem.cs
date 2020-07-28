@@ -80,6 +80,17 @@ namespace Microsoft.MixedReality.Toolkit
             }
         }
 
+        /// <inheritdoc />
+        public override void Destroy()
+        {
+            foreach (var provider in dataProviders)
+            {
+                provider.Destroy();
+            }
+
+            base.Destroy();
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
