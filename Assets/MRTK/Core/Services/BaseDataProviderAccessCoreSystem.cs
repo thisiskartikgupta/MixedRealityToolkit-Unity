@@ -37,6 +37,17 @@ namespace Microsoft.MixedReality.Toolkit
             }
         }
 
+        /// <inheritdoc />
+        public override void Disable()
+        {
+            foreach (var provider in dataProviders)
+            {
+                provider.Disable();
+            }
+
+            base.Disable();
+        }
+
         private static readonly ProfilerMarker UpdatePerfMarker = new ProfilerMarker("[MRTK] BaseDataProviderAccessCoreSystem.Update");
 
         /// <inheritdoc />
