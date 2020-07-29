@@ -13,4 +13,12 @@ MonoBehaviour:
   m_Name: DefaultMixedRealityRegisteredServiceProvidersProfile
   m_EditorClassIdentifier: 
   isCustomProfile: 0
-  configurations: []
+  configurations:
+  - componentType:
+      reference: Microsoft.MixedReality.Toolkit.Experimental.Accessibility.MixedRealityMagnifier,
+        Microsoft.MixedRealityMagnifier
+    componentName: MixedRealityMagnifier
+    priority: 10
+    runtimePlatform: -1
+    configurationProfile: {fileID: 11400000, guid: 3946e76484abb0744bf760b0d0ca03c1,
+      type: 2}

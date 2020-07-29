@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 330db66ad527fec44a3b759d3bd1b470, type: 3}
-  m_Name: DefaultMixedRealityToolkitAccessibilitySystemProfile
+  m_Script: {fileID: 11500000, guid: eebbca41bb0b40d298ef201735d08616, type: 3}
+  m_Name: MixedRealityRegisteredServiceProvidersProfile
   m_EditorClassIdentifier: 
   isCustomProfile: 1
-  featureConfigurations:
+  configurations:
   - componentType:
       reference: Microsoft.MixedReality.Toolkit.Experimental.Accessibility.MixedRealityMagnifier,
         Microsoft.MixedRealityMagnifier
-    componentName: Mixed Reality Magnifier
-    priority: 0
+    componentName: MixedRealityMagnifier
+    priority: 10
     runtimePlatform: -1
-    featureProfile: {fileID: 11400000, guid: 3946e76484abb0744bf760b0d0ca03c1, type: 2}
+    configurationProfile: {fileID: 11400000, guid: 3946e76484abb0744bf760b0d0ca03c1,
+      type: 2}

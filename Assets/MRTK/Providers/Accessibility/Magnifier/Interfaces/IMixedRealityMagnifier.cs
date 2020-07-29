@@ -38,6 +38,11 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         float MinimumDistance { get; set; }
 
         /// <summary>
+        /// You can only magnify one object at a time, so this stores the magnified object at the moment.
+        /// </summary>
+        GameObject MagnifiedObject { get; }
+
+        /// <summary>
         /// Indicates whether or not the magnifier is running.
         /// </summary>
         bool IsRunning { get; }

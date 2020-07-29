@@ -53,7 +53,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 
         private float magnificationFactor;
 
-        private AutoStartBehavior startupBehavior = AutoStartBehavior.ManualStart;
+        private AutoStartBehavior startupBehavior = AutoStartBehavior.AutoStart;
 
         /// <inheritdoc />
         public AutoStartBehavior StartupBehavior
@@ -71,7 +71,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             {
                 if (magnificationFactor != value)
                 {
-                    // todo: apply upper bound
+                    // todo: enforce upper bound
                     if (value < 1.0f)
                     {
                         Debug.LogError($"Invalid MagnificationFactor. Valid values must be greater than or equal to 1.0");
@@ -85,27 +85,31 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 
         private float minDistance = 0.3f;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <inheritdoc />
         public float MinimumDistance
         {
             get => minDistance;
-            // todo apply range
+            // todo enforce range
             set => minDistance = value;
         }
 
         private bool isRunning = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <inheritdoc />
         public bool IsRunning
         {
             get => isRunning;
             private set => isRunning = value;
         }
 
+        private GameObject magnifiedObject = null;
+
+        /// <inheritdoc />
+        public GameObject MagnifiedObject
+        {
+            get => magnifiedObject;
+            private set => magnifiedObject = value;
+        }
 
         /// <inheritdoc />
         public void Suspend()
@@ -114,7 +118,10 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             suspendedByDisable = false;
 
             // Return the target hologram to the original scale.
-            // todo
+            if (MagnifiedObject != null)
+            {
+                MagnifiedObject.transform.localScale = Vector3.one;
+            }
         }
 
         /// <inheritdoc />
@@ -159,12 +166,33 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             if (IsRunning)
             {
                 GameObject focusedObject = CoreServices.InputSystem?.GazeProvider?.GazeTarget;
-                if (focusedObject == null)
-                {
-                    return;
+
+                // Check to see if the user's gaze remains on the magnified object.
+                // This same condition holds if there is no magnified object and the user's gaze is not on an object.
+                if (MagnifiedObject == focusedObject) 
+                { 
+                    // There is nothing to do.
+                    return; 
                 }
 
-                // todo
+                // Check to see if the user's gaze has left the magnified object
+                if ((focusedObject == null) ||
+                    (MagnifiedObject != focusedObject))
+                {
+                    if (MagnifiedObject != null)
+                    {
+                        // Restore the magnified object's scale.
+                        MagnifiedObject.transform.localScale = Vector3.one;
+                    }
+                }
+
+                // Check to see if the user is gazing at a new object.
+                if (focusedObject != null)
+                {
+                    focusedObject.transform.localScale = new Vector3(magnificationFactor, magnificationFactor, magnificationFactor);
+                }
+
+                MagnifiedObject = focusedObject;
             }
         }
 

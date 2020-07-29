@@ -4,6 +4,7 @@
 using Microsoft.MixedReality.Toolkit.Boundary;
 using Microsoft.MixedReality.Toolkit.CameraSystem;
 using Microsoft.MixedReality.Toolkit.Diagnostics;
+using Microsoft.MixedReality.Toolkit.Experimental.Accessibility;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.SceneSystem;
 using Microsoft.MixedReality.Toolkit.SpatialAwareness;
@@ -20,6 +21,12 @@ namespace Microsoft.MixedReality.Toolkit
     /// </summary>
     public static class CoreServices
     {
+        /// <summary>
+        /// Cached reference to the active instance of the accessibility system.
+        /// If system is destroyed, reference will be invalid. Please use ResetCacheReferences() 
+        /// </summary>
+        public static IMixedRealityAccessibilitySystem AccessibilitySystem => GetService<IMixedRealityAccessibilitySystem>();
+
         /// <summary>
         /// Cached reference to the active instance of the boundary system.
         /// If system is destroyed, reference will be invalid. Please use ResetCacheReferences() 

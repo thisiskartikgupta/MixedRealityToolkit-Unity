@@ -35,40 +35,60 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         public override void Initialize()
         {
             base.Initialize();
-            // todo
+
+            if (AccessibilityProfile != null && GetDataProviders<IMixedRealityAccessibilityFeature>().Count == 0)
+            {
+                // Register the spatial observers.
+                for (int i = 0; i < AccessibilityProfile.FeatureConfigurations.Length; i++)
+                {
+                    MixedRealityAccessibilityFeatureConfiguration configuration = AccessibilityProfile.FeatureConfigurations[i];
+                    object[] args = { this, configuration.ComponentName, configuration.Priority, configuration.FeatureProfile };
+
+                    RegisterDataProvider<IMixedRealityAccessibilityFeature>(
+                        configuration.ComponentType.Type,
+                        configuration.ComponentName,
+                        configuration.RuntimePlatform,
+                        args);
+                }
+            }
         }
 
         /// <inheritdoc/>
         public override void Reset()
         {
             base.Reset();
-            // todo
-        }
-
-        /// <inheritdoc/>
-        public override void Update()
-        {
-            base.Update();
-            // todo
+            // todo - this needs to be smart.
+            // create a data provider cleanup method that can be called here and in destroy
         }
 
         /// <inheritdoc/>
         public override void Enable()
         {
             base.Enable();
-            // todo
+            IReadOnlyList<IMixedRealityAccessibilityFeature> features = GetDataProviders<IMixedRealityAccessibilityFeature>();
+            for (int i = 0; i < features.Count; i++)
+            {
+                features[i].Enable();
+            }
         }
 
         /// <inheritdoc/>
         public override void Disable()
         {
-            // todo
+            IReadOnlyList<IMixedRealityAccessibilityFeature> features = GetDataProviders<IMixedRealityAccessibilityFeature>();
+            for (int i = 0; i < features.Count; i++)
+            {
+                features[i].Disable();
+            }
             base.Disable();
         }
 
         public override void Destroy()
         {
-            // todo
+            foreach (IMixedRealityAccessibilityFeature feature in GetDataProviders<IMixedRealityAccessibilityFeature>())
+            {
+                UnregisterDataProvider(feature);
+            }
             base.Destroy();
         }
 

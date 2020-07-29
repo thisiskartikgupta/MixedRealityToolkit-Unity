@@ -3,6 +3,7 @@
 
 using Microsoft.MixedReality.Toolkit.Boundary;
 using Microsoft.MixedReality.Toolkit.Diagnostics;
+using Microsoft.MixedReality.Toolkit.Experimental.Accessibility;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.SpatialAwareness;
 using Microsoft.MixedReality.Toolkit.Teleport;
@@ -405,6 +406,18 @@ namespace Microsoft.MixedReality.Toolkit
 #if UNITY_EDITOR
                 InputMappingAxisUtility.RemoveMappings(ControllerMappingLibrary.UnityInputManagerAxes);
 #endif
+            }
+
+            // If the Accessibility system has been selected for initialization in the Active profile, enable it in the project
+            if (ActiveProfile.IsAccessibilitySystemEnabled)
+            {
+                DebugUtilities.LogVerbose("Begin registration of the accessiblity system");
+                object[] args = { ActiveProfile.AccessibilitySystemProfile };
+                if (!RegisterService<IMixedRealityAccessibilitySystem>(ActiveProfile.AccessibilitySystemSystemType, args: args) || CoreServices.AccessibilitySystem == null)
+                {
+                    Debug.LogError("Failed to start the accessiblity System!");
+                }
+                DebugUtilities.LogVerbose("End registration of the accessiblity system");
             }
 
             // If the Boundary system has been selected for initialization in the Active profile, enable it in the project
