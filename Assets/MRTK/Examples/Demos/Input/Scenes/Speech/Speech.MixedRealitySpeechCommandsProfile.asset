@@ -44,3 +44,10 @@ MonoBehaviour:
       id: 0
       description: Toggle Diagnostics
       axisConstraint: 0
+  - localizationKey: 
+    keyword: Bring Closer
+    keyCode: 98
+    action:
+      id: 0
+      description: Toggle Diagnostics
+      axisConstraint: 0
