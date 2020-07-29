@@ -120,7 +120,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             // Return the target hologram to the original scale.
             if (MagnifiedObject != null)
             {
-                MagnifiedObject.transform.localScale = Vector3.one;
+                MagnifiedObject.transform.localScale /= MagnificationFactor;
             }
         }
 
@@ -182,14 +182,14 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
                     if (MagnifiedObject != null)
                     {
                         // Restore the magnified object's scale.
-                        MagnifiedObject.transform.localScale = Vector3.one;
+                        MagnifiedObject.transform.localScale /= MagnificationFactor;
                     }
                 }
 
                 // Check to see if the user is gazing at a new object.
                 if (focusedObject != null)
                 {
-                    focusedObject.transform.localScale = new Vector3(magnificationFactor, magnificationFactor, magnificationFactor);
+                    focusedObject.transform.localScale *= MagnificationFactor;
                 }
 
                 MagnifiedObject = focusedObject;
