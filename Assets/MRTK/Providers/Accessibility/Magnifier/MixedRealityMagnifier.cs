@@ -9,6 +9,12 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
     /// <summary>
     /// 
     /// </summary>
+    [MixedRealityDataProvider(
+        typeof(IMixedRealityAccessibilitySystem),
+        (SupportedPlatforms)(-1),
+        "Mixed Reality Magnifier",
+        "Accessibility/Magnifier/Profiles/DefaultMixedRealityMagnifierProfile.asset",
+        "MixedRealityToolkit.Providers")]
     public class MixedRealityMagnifier : BaseAccessibilityFeature, IMixedRealityMagnifier
     {
         public MixedRealityMagnifier(

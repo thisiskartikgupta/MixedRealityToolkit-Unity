@@ -33,7 +33,8 @@ MonoBehaviour:
   teleportSystemType:
     reference: Microsoft.MixedReality.Toolkit.Teleport.MixedRealityTeleportSystem,
       Microsoft.MixedReality.Toolkit.Services.TeleportSystem
-  accessibilitySystemProfile: {fileID: 0}
+  accessibilitySystemProfile: {fileID: 11400000, guid: 05e03df921dd3d94a922690d8743d0ba,
+    type: 2}
   enableAccessibilitySystem: 1
   accessibilitySystemType:
     reference: Microsoft.MixedReality.Toolkit.Experimental.Accessibility.MixedRealityAccessibilitySystem,
