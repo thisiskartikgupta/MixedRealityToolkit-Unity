@@ -44,3 +44,17 @@ MonoBehaviour:
       id: 0
       description: Toggle Diagnostics
       axisConstraint: 0
+  - localizationKey: 
+    keyword: Move Closer
+    keyCode: 109
+    action:
+      id: 0
+      description: Toggle Diagnostics
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Move Back
+    keyCode: 122
+    action:
+      id: 0
+      description: Toggle Diagnostics
+      axisConstraint: 0
