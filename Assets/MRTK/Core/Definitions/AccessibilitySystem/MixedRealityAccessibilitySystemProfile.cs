@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 {
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Profiles/Mixed Reality Accessibility System Profile", fileName = "MixedRealityToolkitAccessibilitySystemProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Profiles/Mixed Reality Accessibility System Profile", fileName = "MixedRealityAccessibilitySystemProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
     [MixedRealityServiceProfile(typeof(IMixedRealityAccessibilitySystem))]
-    // todo [HelpURL("https://microsoft.github.io/MixedRealityToolkit-Unity/Documentation/MixedRealityConfigurationGuide.html")]
+    [HelpURL("https://microsoft.github.io/MixedRealityToolkit-Unity/Documentation/MixedRealityConfigurationGuide.html")]
     public class MixedRealityAccessibilitySystemProfile : BaseMixedRealityProfile
     {
         [SerializeField]

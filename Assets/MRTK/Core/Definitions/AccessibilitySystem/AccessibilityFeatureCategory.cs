@@ -32,9 +32,9 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         /// </summary>
         Cognitive = 1 << 3,     // 0x00000008
 
-        ///// <summary>
-        ///// Feature applies to an accessibility category that has not been defined.
-        ///// </summary>
-        //Unknown = 1 << 31       // 0x8000000
+        /// <summary>
+        /// Feature applies to an accessibility category that has not been defined.
+        /// </summary>
+        Unknown = 1 << 31       // 0x8000000
     }
 }

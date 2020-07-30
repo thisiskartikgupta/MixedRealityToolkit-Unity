@@ -1,12 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 {
+    /// <summary>
+    /// Class providing the default implementation of the <see cref="IMixedRealityAccessibilitySystem"/> interface.
+    /// </summary>
     public class MixedRealityAccessibilitySystem : BaseDataProviderAccessCoreSystem, IMixedRealityAccessibilitySystem
     {
         /// <summary>
@@ -22,8 +23,6 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         /// <inheritdoc/>
         public MixedRealityAccessibilitySystemProfile AccessibilityProfile => ConfigurationProfile as MixedRealityAccessibilitySystemProfile;
 
-        // todo
-
         #endregion // IMixedRealityAccessibilitySystem
 
         #region IMixedRealityService
@@ -35,30 +34,17 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         public override void Initialize()
         {
             base.Initialize();
-
-            if (AccessibilityProfile != null && GetDataProviders<IMixedRealityAccessibilityFeature>().Count == 0)
-            {
-                // Register the spatial observers.
-                for (int i = 0; i < AccessibilityProfile.FeatureConfigurations.Length; i++)
-                {
-                    MixedRealityAccessibilityFeatureConfiguration configuration = AccessibilityProfile.FeatureConfigurations[i];
-                    object[] args = { this, configuration.ComponentName, configuration.Priority, configuration.FeatureProfile };
-
-                    RegisterDataProvider<IMixedRealityAccessibilityFeature>(
-                        configuration.ComponentType.Type,
-                        configuration.ComponentName,
-                        configuration.RuntimePlatform,
-                        args);
-                }
-            }
+            RegisterFeatureProviders();
         }
 
         /// <inheritdoc/>
         public override void Reset()
         {
             base.Reset();
-            // todo - this needs to be smart.
-            // create a data provider cleanup method that can be called here and in destroy
+            Disable();
+            UnregisterFeatureProviders();
+            Initialize();
+            Enable();
         }
 
         /// <inheritdoc/>
@@ -83,13 +69,44 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             base.Disable();
         }
 
+        /// <inheritdoc/>
         public override void Destroy()
+        {
+            UnregisterFeatureProviders();
+            base.Destroy();
+        }
+
+        /// <summary>
+        /// Registers and initializes the configured accessibility feature providers.
+        /// </summary>
+        private void RegisterFeatureProviders()
+        {
+            if (AccessibilityProfile != null && GetDataProviders<IMixedRealityAccessibilityFeature>().Count == 0)
+            {
+                // Register the spatial observers.
+                for (int i = 0; i < AccessibilityProfile.FeatureConfigurations.Length; i++)
+                {
+                    MixedRealityAccessibilityFeatureConfiguration configuration = AccessibilityProfile.FeatureConfigurations[i];
+                    object[] args = { this, configuration.ComponentName, configuration.Priority, configuration.FeatureProfile };
+
+                    RegisterDataProvider<IMixedRealityAccessibilityFeature>(
+                        configuration.ComponentType.Type,
+                        configuration.ComponentName,
+                        configuration.RuntimePlatform,
+                        args);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Unregisters the current accessibility feature providers.
+        /// </summary>
+        private void UnregisterFeatureProviders()
         {
             foreach (IMixedRealityAccessibilityFeature feature in GetDataProviders<IMixedRealityAccessibilityFeature>())
             {
                 UnregisterDataProvider(feature);
             }
-            base.Destroy();
         }
 
         #endregion // IMixedRealityService

@@ -9,7 +9,5 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         /// Typed representation of the ConfigurationProfile property.
         /// </summary>
         MixedRealityAccessibilitySystemProfile AccessibilityProfile { get; }
-        
-        // todo
     }
 }

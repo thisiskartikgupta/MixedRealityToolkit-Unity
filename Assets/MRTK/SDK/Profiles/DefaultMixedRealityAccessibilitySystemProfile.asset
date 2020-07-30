@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330db66ad527fec44a3b759d3bd1b470, type: 3}
   m_Name: DefaultMixedRealityToolkitAccessibilitySystemProfile
   m_EditorClassIdentifier: 
-  isCustomProfile: 1
+  isCustomProfile: 0
   featureConfigurations:
   - componentType:
       reference: Microsoft.MixedReality.Toolkit.Experimental.Accessibility.MixedRealityMagnifier,

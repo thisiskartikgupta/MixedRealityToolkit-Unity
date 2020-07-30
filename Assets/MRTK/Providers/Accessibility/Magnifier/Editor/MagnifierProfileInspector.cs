@@ -2,10 +2,8 @@
 // Licensed under the MIT License.﻿
 
 using Microsoft.MixedReality.Toolkit.Editor;
-using Microsoft.MixedReality.Toolkit.Utilities;
-using Microsoft.MixedReality.Toolkit.Utilities.Editor;
+using System.Linq;
 using UnityEditor;
-using UnityEngine;
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility.Editor
 {
@@ -13,9 +11,8 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility.Editor
     public class MagnifierProfileInspector : BaseMixedRealityToolkitConfigurationProfileInspector
     {
         private const string ProfileTitle = "Magnifier Settings";
-        private const string ProfileDescription = ""; // todo - description
+        private const string ProfileDescription = "";
 
-        private SerializedProperty category;
         private SerializedProperty magnificationFactor;
         private SerializedProperty minDistance;
 
@@ -48,10 +45,13 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility.Editor
 
         protected override bool IsProfileInActiveInstance()
         {
-            return true;
-            //var profile = target as BaseMixedRealityProfile;
-            //return MixedRealityToolkit.IsInitialized && profile != null &&
-            //       profile == MixedRealityToolkit.Instance.ActiveProfile.BoundaryVisualizationProfile;
+            var profile = target as BaseMixedRealityProfile;
+
+            return MixedRealityToolkit.IsInitialized && profile != null &&
+                   MixedRealityToolkit.Instance.HasActiveProfile &&
+                   MixedRealityToolkit.Instance.ActiveProfile.AccessibilitySystemProfile != null &&
+                   MixedRealityToolkit.Instance.ActiveProfile.AccessibilitySystemProfile.FeatureConfigurations != null &&
+                   MixedRealityToolkit.Instance.ActiveProfile.AccessibilitySystemProfile.FeatureConfigurations.Any(s => s.FeatureProfile == profile);
         }
     }
 }

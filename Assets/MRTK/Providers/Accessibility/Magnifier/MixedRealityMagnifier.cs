@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
 {
     /// <summary>
-    /// 
+    /// Class providing the default implementation of the <see cref="IMixedRealityMagnifier"/> interface.
     /// </summary>
     [MixedRealityDataProvider(
         typeof(IMixedRealityAccessibilitySystem),
@@ -17,6 +17,13 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
         "MixedRealityToolkit.Providers")]
     public class MixedRealityMagnifier : BaseAccessibilityFeature, IMixedRealityMagnifier
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="system">The system managing this feature.</param>
+        /// <param name="name">The name of this feature.</param>
+        /// <param name="priority">The feature priority.</param>
+        /// <param name="profile">The profile that specifies the feature configuration settings.</param>
         public MixedRealityMagnifier(
             IMixedRealityAccessibilitySystem system,
             string name,
@@ -62,6 +69,9 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             set => startupBehavior = value;
         }
 
+        private float magFactorMin = 1.0f;
+        private float magFactorMax = 5.0f;
+
         /// <inheritdoc />
         public float MagnificationFactor
         {
@@ -71,10 +81,9 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             {
                 if (magnificationFactor != value)
                 {
-                    // todo: enforce upper bound
-                    if (value < 1.0f)
+                    if ((value < magFactorMin) || (value > magFactorMax))
                     {
-                        Debug.LogError($"Invalid MagnificationFactor. Valid values must be greater than or equal to 1.0");
+                        Debug.LogError($"Invalid MagnificationFactor. Valid values must be within {magFactorMin} and {magFactorMax}, inclusive");
                         return;
                     }
 
@@ -83,33 +92,35 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Accessibility
             }
         }
 
+        private float distanceMin = 0.0f;
+        private float distanceMax = 10.0f;
         private float minDistance = 0.3f;
 
         /// <inheritdoc />
         public float MinimumDistance
         {
             get => minDistance;
-            // todo enforce range
-            set => minDistance = value;
-        }
 
-        private bool isRunning = false;
+            set
+            {
+                if (minDistance != value)
+                {
+                    if ((value < distanceMin) || (value > distanceMax))
+                    {
+                        Debug.LogError($"Invalid MinimumDistance. Valid values must be within {distanceMin} and {distanceMax}, inclusive");
+                        return;
+                    }
+
+                    minDistance = value;
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public bool IsRunning
-        {
-            get => isRunning;
-            private set => isRunning = value;
-        }
-
-        private GameObject magnifiedObject = null;
+        public bool IsRunning { get; set; }
 
         /// <inheritdoc />
-        public GameObject MagnifiedObject
-        {
-            get => magnifiedObject;
-            private set => magnifiedObject = value;
-        }
+        public GameObject MagnifiedObject { get; private set; }
 
         /// <inheritdoc />
         public void Suspend()
